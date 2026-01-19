@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, ViewEncapsulation, signal } from '@angular/core';
 
 // Declare Hls global from script tag
 declare const Hls: any;
@@ -8,19 +8,26 @@ declare const Hls: any;
   selector: 'app-hero',
   standalone: true,
   template: `
-    <section class="relative w-full min-h-screen flex items-center justify-start overflow-hidden">
+    <section 
+      class="relative w-full min-h-screen flex items-center justify-start overflow-hidden perspective-container"
+      (mousemove)="onMouseMove($event)"
+      (mouseleave)="onMouseLeave()"
+    >
       
       <!-- Video Background -->
-      <div class="absolute inset-0 z-0">
-        <video #videoRef class="w-full h-full object-cover" muted loop playsinline autoplay></video>
+      <div 
+        class="absolute inset-0 z-0 transition-transform duration-100 ease-out will-change-transform"
+        [style.transform]="videoTransform()"
+      >
+        <video #videoRef class="w-full h-full object-cover scale-110" muted loop playsinline autoplay></video>
         <!-- Dark overlay -->
         <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent"></div>
         <div class="absolute inset-0 bg-obsidian/40 mix-blend-multiply"></div>
       </div>
 
       <!-- Content -->
-      <div class="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20">
-        <div class="max-w-3xl">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20 pointer-events-none">
+        <div class="max-w-3xl pointer-events-auto">
           
           <!-- Badge -->
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric-teal/30 bg-electric-teal/5 backdrop-blur-sm mb-8 animate-fade-in-up">
@@ -41,15 +48,11 @@ declare const Hls: any;
 
           <!-- Buttons -->
           <div class="flex flex-col sm:flex-row gap-4">
-            <button class="group px-8 py-4 bg-white text-obsidian font-bold rounded hover:scale-105 hover:shadow-[0_0_30px_rgba(102,252,241,0.5)] transition-all duration-300 flex items-center justify-center gap-2">
+            <a href="#booking" class="group px-8 py-4 bg-white text-obsidian font-bold rounded hover:scale-105 hover:shadow-[0_0_30px_rgba(102,252,241,0.5)] transition-all duration-300 flex items-center justify-center gap-2">
               Get Your Free AI Audit
               <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
-            </button>
-
-            <a href="#booking" class="px-8 py-4 glass-card text-white font-bold rounded hover:bg-white/10 transition-all border border-white/20 text-center">
-              Book a Strategy Call
             </a>
           </div>
 
@@ -57,7 +60,7 @@ declare const Hls: any;
       </div>
 
       <!-- Scroll indicator -->
-      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50 animate-bounce">
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50 animate-bounce pointer-events-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
@@ -73,11 +76,16 @@ declare const Hls: any;
     .animate-fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
     }
+    .perspective-container {
+      perspective: 1000px;
+    }
   `],
   encapsulation: ViewEncapsulation.None
 })
 export class HeroComponent implements AfterViewInit {
   @ViewChild('videoRef') videoRef!: ElementRef<HTMLVideoElement>;
+  
+  videoTransform = signal('scale(1.1)');
 
   ngAfterViewInit() {
     const video = this.videoRef.nativeElement;
@@ -96,5 +104,26 @@ export class HeroComponent implements AfterViewInit {
         video.play().catch(e => console.log('Autoplay prevented:', e));
       });
     }
+  }
+
+  onMouseMove(e: MouseEvent) {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    
+    // Calculate percentage from center (-1 to 1)
+    const x = (clientX - innerWidth / 2) / (innerWidth / 2);
+    const y = (clientY - innerHeight / 2) / (innerHeight / 2);
+
+    // Rotation and translation values
+    const rotateX = -y * 3; 
+    const rotateY = x * 3; 
+    const translateX = -x * 15;
+    const translateY = -y * 15;
+
+    this.videoTransform.set(`scale(1.1) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(${translateX}px, ${translateY}px, 0)`);
+  }
+
+  onMouseLeave() {
+    this.videoTransform.set('scale(1.1)');
   }
 }
