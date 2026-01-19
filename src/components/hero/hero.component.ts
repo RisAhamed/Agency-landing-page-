@@ -41,7 +41,7 @@ declare const Hls: any;
 
           <!-- Buttons -->
           <div class="flex flex-col sm:flex-row gap-4">
-            <button class="group px-8 py-4 bg-white text-obsidian font-bold rounded hover:bg-gray-100 transition-all flex items-center justify-center gap-2">
+            <button class="group px-8 py-4 bg-white text-obsidian font-bold rounded hover:scale-105 hover:shadow-[0_0_30px_rgba(102,252,241,0.5)] transition-all duration-300 flex items-center justify-center gap-2">
               Get Your Free AI Audit
               <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
