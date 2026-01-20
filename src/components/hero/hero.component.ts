@@ -14,12 +14,12 @@ declare const Hls: any;
       (mouseleave)="onMouseLeave()"
     >
       
-      <!-- Video Background -->
+      <!-- Video Background Container -->
       <div 
-        class="absolute inset-0 z-0 transition-transform duration-100 ease-out will-change-transform"
+        class="absolute inset-0 z-0 transition-transform duration-200 ease-out will-change-transform"
         [style.transform]="videoTransform()"
       >
-        <video #videoRef class="w-full h-full object-cover scale-110" muted loop playsinline autoplay></video>
+        <video #videoRef class="w-full h-full object-cover" muted loop playsinline autoplay></video>
         <!-- Dark overlay -->
         <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent"></div>
         <div class="absolute inset-0 bg-obsidian/40 mix-blend-multiply"></div>
@@ -77,7 +77,7 @@ declare const Hls: any;
       animation: fadeInUp 0.8s ease-out forwards;
     }
     .perspective-container {
-      perspective: 1000px;
+      perspective: 1500px;
     }
   `],
   encapsulation: ViewEncapsulation.None
@@ -85,10 +85,12 @@ declare const Hls: any;
 export class HeroComponent implements AfterViewInit {
   @ViewChild('videoRef') videoRef!: ElementRef<HTMLVideoElement>;
   
-  videoTransform = signal('scale(1.1)');
+  // Start with a base scale to allow movement without showing edges
+  videoTransform = signal('scale(1.15)');
 
   ngAfterViewInit() {
     const video = this.videoRef.nativeElement;
+    // Using a reliable CDN source for the background texture/video
     const videoSrc = 'https://customer-cbeadsgr09pnsezs.cloudflarestream.com/df176a2fb2ea2b64bd21ae1c10d3af6a/manifest/video.m3u8';
 
     if (Hls.isSupported()) {
@@ -110,20 +112,24 @@ export class HeroComponent implements AfterViewInit {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
     
-    // Calculate percentage from center (-1 to 1)
+    // Calculate normalized position (-1 to 1)
     const x = (clientX - innerWidth / 2) / (innerWidth / 2);
     const y = (clientY - innerHeight / 2) / (innerHeight / 2);
 
-    // Rotation and translation values
-    const rotateX = -y * 3; 
-    const rotateY = x * 3; 
-    const translateX = -x * 15;
-    const translateY = -y * 15;
+    // Enhanced Rotation and translation values for better visibility
+    // Negative Y for rotateX means looking up when mouse is up
+    const rotateX = -y * 5; 
+    const rotateY = x * 5; 
+    
+    // Move the video slightly opposite to mouse to create depth (parallax)
+    const translateX = -x * 25;
+    const translateY = -y * 25;
 
-    this.videoTransform.set(`scale(1.1) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(${translateX}px, ${translateY}px, 0)`);
+    this.videoTransform.set(`scale(1.15) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(${translateX}px, ${translateY}px, 0)`);
   }
 
   onMouseLeave() {
-    this.videoTransform.set('scale(1.1)');
+    // Reset to center
+    this.videoTransform.set('scale(1.15) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)');
   }
 }
