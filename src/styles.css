@@ -1,7 +1,5 @@
 /* Global Styles */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Note: Tailwind CSS is loaded via CDN in index.html for this project setup */
 
 html, body {
     height: 100%;
