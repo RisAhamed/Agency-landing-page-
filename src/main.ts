@@ -1,11 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { AppComponent } from './app.component';
+import { RootComponent } from './root.component';
 import { routes } from './app.routes';
 import { provideRouter } from '@angular/router';
 import { inject } from '@vercel/analytics';
 
-bootstrapApplication(AppComponent, {
+bootstrapApplication(RootComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(routes)
