@@ -7,7 +7,7 @@ import {
   getDOM,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-4BSIIHEE.js";
+} from "./chunk-553D3SG7.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_ID,
@@ -90,7 +90,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-NVFSTTLK.js";
+} from "./chunk-XOU3TBSS.js";
 import {
   __async,
   __objRest,
@@ -4025,42 +4025,42 @@ function provideClientHydration(...features) {
   return makeEnvironmentProviders([typeof ngDevMode !== "undefined" && ngDevMode ? provideEnabledBlockingInitialNavigationDetector() : [], typeof ngDevMode !== "undefined" && ngDevMode ? provideStabilityDebugging() : [], withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : withHttpTransferCache({}), providers]);
 }
 var VERSION = new Version("21.1.0");
+
 export {
-  BrowserModule,
-  By,
-  DomSanitizer,
+  EventManagerPlugin,
+  DomEventsPlugin,
   EVENT_MANAGER_PLUGINS,
   EventManager,
-  EventManagerPlugin,
+  SharedStylesHost,
+  REMOVE_STYLES_ON_COMPONENT_DESTROY,
+  DomRendererFactory2,
+  BrowserDomAdapter,
+  BrowserGetTestability,
+  KeyEventsPlugin,
+  bootstrapApplication,
+  createApplication,
+  provideProtractorTestingSupport,
+  platformBrowser,
+  BrowserModule,
+  Meta,
+  Title,
+  enableDebugTools,
+  disableDebugTools,
+  By,
   HAMMER_GESTURE_CONFIG,
   HAMMER_LOADER,
   HammerGestureConfig,
+  HammerGesturesPlugin,
   HammerModule,
+  DomSanitizer,
+  DomSanitizerImpl,
   HydrationFeatureKind,
-  Meta,
-  REMOVE_STYLES_ON_COMPONENT_DESTROY,
-  Title,
-  VERSION,
-  bootstrapApplication,
-  createApplication,
-  disableDebugTools,
-  enableDebugTools,
-  platformBrowser,
-  provideClientHydration,
-  provideProtractorTestingSupport,
-  withEventReplay2 as withEventReplay,
+  withNoHttpTransferCache,
   withHttpTransferCacheOptions,
   withI18nSupport2 as withI18nSupport,
+  withEventReplay2 as withEventReplay,
   withIncrementalHydration2 as withIncrementalHydration,
-  withNoHttpTransferCache,
-  BrowserDomAdapter as ɵBrowserDomAdapter,
-  BrowserGetTestability as ɵBrowserGetTestability,
-  DomEventsPlugin as ɵDomEventsPlugin,
-  DomRendererFactory2 as ɵDomRendererFactory2,
-  DomSanitizerImpl as ɵDomSanitizerImpl,
-  HammerGesturesPlugin as ɵHammerGesturesPlugin,
-  KeyEventsPlugin as ɵKeyEventsPlugin,
-  SharedStylesHost as ɵSharedStylesHost,
-  getDOM as ɵgetDOM
+  provideClientHydration,
+  VERSION
 };
-//# sourceMappingURL=@angular_platform-browser.js.map
+//# sourceMappingURL=chunk-EEAQQFMZ.js.map
