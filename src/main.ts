@@ -1,8 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { RootComponent } from './root.component';
+import { AppComponent } from './app.component';
 
 bootstrapApplication(RootComponent, {
   providers: [
@@ -10,3 +8,6 @@ bootstrapApplication(RootComponent, {
     provideRouter(routes)
   ]
 }).catch(err => console.error(err));
+
+// Initialize Vercel Analytics
+inject();
