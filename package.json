@@ -16,6 +16,7 @@
     "@angular/compiler": "^21.1.0",
     "@angular/core": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
+    "@vercel/analytics": "^1.6.1",
     "rxjs": "^7.8.2",
     "tailwindcss": "latest",
     "zone.js": "~0.15.0"
