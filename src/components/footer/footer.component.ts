@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
             SYNAPSE SYSTEMS
           </span>
         </div>
+        <p class="text-sm text-white font-semibold mb-4">Synapse Systems | Premier AI Automation Agency based in Chennai, India. Serving clients globally.</p>
         <p class="text-electric-teal text-sm font-medium mb-6">Don't hire more staff. Hire AI.</p>
         
         <div class="flex justify-center gap-8 text-xs text-gray-500 mb-8">
